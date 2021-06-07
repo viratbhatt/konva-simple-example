@@ -32,6 +32,7 @@ class Rectangle extends React.Component {
     shape.stroke('#3DF6FF');
     shape.getStage().container().style.cursor = 'move';
     // this.rect.draw();
+    //console.log(shape.getStage().container())
     this.rect.getLayer().draw();
   };
 

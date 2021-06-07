@@ -112,9 +112,11 @@ class App extends React.Component {
           ref={(node) => {
             this.stage = node;
           }}
+          x={0}
+          y={0}
           container="app"
-          width={994}
-          height={640}
+          width={window.innerWidth}
+          height={window.innerHeight}
           onMouseDown={handleStageMouseDown}
           onTouchStart={handleStageMouseDown}
           onMouseMove={mouseDown && handleNewRectChange}
