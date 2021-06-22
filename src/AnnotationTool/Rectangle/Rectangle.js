@@ -1,5 +1,5 @@
 import React from 'react';
-import { Rect } from 'react-konva';
+import { Rect, Circle } from 'react-konva';
 
 class Rectangle extends React.Component {
   // compare batchDraw() and draw();
@@ -24,13 +24,14 @@ class Rectangle extends React.Component {
       height: shape.height() * shape.scaleY(),
       rotation: shape.rotation(),
     });
+    
   };
 
   // if use rect.draw(), the new rectangle will cover its transformer
   handleMouseEnter = (event) => {
     const shape = event.target;
-    shape.stroke('#3DF6FF');
-    shape.getStage().container().style.cursor = 'move';
+    shape.stroke('#99F600');
+    shape.getStage().container().style.cursor = 'Move';
     // this.rect.draw();
     //console.log(shape.getStage().container())
     this.rect.getLayer().draw();
@@ -38,7 +39,7 @@ class Rectangle extends React.Component {
 
   handleMouseLeave = (event) => {
     const shape = event.target;
-    shape.stroke('#00A3AA');
+    shape.stroke('#99A3FF');
     shape.getStage().container().style.cursor = 'crosshair';
     // this.rect.draw();
     this.rect.getLayer().draw();
@@ -64,9 +65,11 @@ class Rectangle extends React.Component {
         scaleX={1}
         scaleY={1}
         stroke={stroke}
-        strokeWidth={5}
+        strokeWidth={10}
         name={name}
         // save state on dragend or transformend
+        onDragStart={handleChange}
+        onDragMove={handleChange}
         onDragEnd={handleChange}
         onTransformEnd={handleChange}
         onMouseEnter={handleMouseEnter}

@@ -24,6 +24,8 @@ class App extends React.Component {
 
   handleStageMouseDown = (event) => {
     const { rectangles } = this.state;
+    console.log(this.state)
+    console.log(this.state.rectCount)
     // clicked on stage - clear selection or ready to generate new rectangle
     if (event.target.className === 'Image') {
       const stage = event.target.getStage();
@@ -63,6 +65,7 @@ class App extends React.Component {
       ...rectangles[index],
       ...newProps,
     };
+    console.log(rectangles,"handle change")
 
     this.setState({ rectangles });
   };
@@ -78,7 +81,7 @@ class App extends React.Component {
         x: newRectX,
         y: newRectY,
         width: mousePos.x - newRectX,
-        height: mousePos - newRectY,
+        height: mousePos.y - newRectY,
         name: `rect${rectCount + 1}`,
         stroke: '#00A3AA',
         key: shortid.generate(),
@@ -98,6 +101,14 @@ class App extends React.Component {
     this.setState({ mouseDown: false });
   };
 
+  handleDelete = (item) =>{
+    const {rectangles} = this.state;
+    console.log(rectangles, item)
+    //rectangles = {}
+    this.setState({})
+    
+  }
+
   render() {
     const {
       state: { rectangles, selectedShapeName, mouseDown },
@@ -105,18 +116,18 @@ class App extends React.Component {
       handleNewRectChange,
       handleRectChange,
       handleStageMouseUp,
+      handleDelete,
     } = this;
+    console.log(window.innerWidth)
     return (
       <div id="app">
         <Stage
           ref={(node) => {
             this.stage = node;
           }}
-          x={0}
-          y={0}
           container="app"
-          width={window.innerWidth}
-          height={window.innerHeight}
+          width={window.innerWidth-20}
+          height={window.innerHeight-20}
           onMouseDown={handleStageMouseDown}
           onTouchStart={handleStageMouseDown}
           onMouseMove={mouseDown && handleNewRectChange}
@@ -132,6 +143,7 @@ class App extends React.Component {
                 {...rect}
                 onTransform={(newProps) => {
                   handleRectChange(i, newProps);
+                  console.log(newProps)
                 }}
               />
             ))}
@@ -142,7 +154,7 @@ class App extends React.Component {
               this.img = node;
             }}
           >
-            <AnnotationImage />
+          <AnnotationImage />
           </Layer>
         </Stage>
       </div>
